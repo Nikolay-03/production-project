@@ -2,30 +2,15 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
-import {FlatCompat} from "@eslint/eslintrc";
-import path from "path";
-import * as url from "node:url";
-
+import i18next from 'eslint-plugin-i18next';
 
 export default [
-    ...(new FlatCompat({
-        baseDirectory: path.dirname(url.fileURLToPath(import.meta.url)),
-    }).extends('eslint-config-standard')),
     {files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"]},
     {languageOptions: {globals: globals.browser}},
     pluginJs.configs.recommended,
     ...tseslint.configs.recommended,
     pluginReact.configs.flat.recommended,
-    {
-        extends: [
-            "plugin:i18next/recommended",
-        ]
-    },
-    {
-        plugins: [
-            "i18next",
-        ]
-    },
+    i18next.configs['flat/recommended'],
     {
         rules: {
             'no-unused-vars': 'warn',
