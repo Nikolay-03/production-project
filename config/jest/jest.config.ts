@@ -14,13 +14,17 @@ export default {
     // cacheDirectory: "/private/var/folders/kd/0hw2tl610n9d82jh0dpnp2zr0000gn/T/jest_dx",
 
     // Automatically clear mock calls, instances and results before every test
+    modulePaths:[
+        '<rootDir>src'
+    ],
     rootDir: '../../',
+    setupFilesAfterEnv: ['<rootDir>config/jest/setupTests.ts'],
     clearMocks: true,
     coveragePathIgnorePatterns: [
         "/node_modules/"
     ],
     moduleDirectories: [
-        "node_modules"
+        "node_modules",
     ],
     moduleFileExtensions: [
         "js",
@@ -33,6 +37,10 @@ export default {
     testMatch: [
         '<rootDir>src/**/*(*.)@(spec|test).[tj]s?(x)',
     ],
+    moduleNameMapper: {
+        '\\.(s?css)$': 'identity-obj-proxy',
+        "\\.svg": "<rootDir>config/jest/jestEmptyComponent.tsx"
+    },
     // Indicates whether the coverage information should be collected while executing the test
     // collectCoverage: false,
 
@@ -86,7 +94,7 @@ export default {
 
 
     // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-    // moduleNameMapper: {},
+
 
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
     // modulePathIgnorePatterns: [],
