@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import cls from './Sidebar.module.scss'
 import {classNames} from "shared/lib/helpers";
-import {LangSwitcher, ThemeSwitcher} from "shared/ui";
+import {AppLink, AppLinkTheme, LangSwitcher, ThemeSwitcher} from "shared/ui";
 import {useTranslation} from "react-i18next";
 
 interface SidebarProps{
@@ -26,6 +26,10 @@ export const Sidebar:FC<SidebarProps> = (props) => {
             >
                 {t('Расширение')}
             </button>
+            <div className={cls.links}>
+                <AppLink to={'/'} className={cls.mainLinks} theme={AppLinkTheme.SECONDARY}>{t("Главная")}</AppLink>
+                <AppLink to={'/about'} theme={AppLinkTheme.SECONDARY}>{t("О нас")}</AppLink>
+            </div>
             <div className={cls.switchers}>
                 <ThemeSwitcher/>
                 <LangSwitcher className={cls.lang}/>

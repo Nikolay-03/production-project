@@ -3,7 +3,9 @@ import cls from './Button.module.scss';
 import {classNames} from "shared/lib/helpers";
 
 export enum ThemeButton {
-    CLEAR = 'clear'
+    CLEAR = 'clear',
+    CLEAR_INVERTED = 'clearInverted',
+    OUTLINED = 'outlined',
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
