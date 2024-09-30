@@ -1,6 +1,7 @@
 .Button {
   cursor: pointer;
 }
+
 .clearInverted,
 .clear {
   padding: 0;
@@ -10,9 +11,11 @@
   color: var(--primary-color);
   outline: none;
 }
+
 .clearInverted{
   color: var(--inverted-primary-color);
 }
+
 .outlined {
   border: 1px solid var(--primary-color);
   background: none;
