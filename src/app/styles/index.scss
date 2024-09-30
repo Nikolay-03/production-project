@@ -1,8 +1,7 @@
-@import "app/styles/reset";
-@import "app/styles/variables/global";
-@import "app/styles/themes/normal";
-@import "app/styles/themes/dark";
-
+@import "reset";
+@import "./variables/global.scss";
+@import "./themes/normal.scss";
+@import "./themes/dark.scss";
 body{
   font: var(--font-m);
   color: var(--primary-color);

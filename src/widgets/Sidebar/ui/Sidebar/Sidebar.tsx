@@ -27,8 +27,7 @@ export const Sidebar:FC<SidebarProps> = (props) => {
                 {t('Расширение')}
             </button>
             <div className={cls.links}>
-                <AppLink to={'/'} className={cls.mainLinks} theme={AppLinkTheme.SECONDARY}>{t("Главная")}</AppLink>
-                <AppLink to={'/about'} theme={AppLinkTheme.SECONDARY}>{t("О нас")}</AppLink>
+
             </div>
             <div className={cls.switchers}>
                 <ThemeSwitcher/>
