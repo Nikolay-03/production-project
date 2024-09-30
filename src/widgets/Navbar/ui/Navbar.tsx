@@ -28,7 +28,6 @@ export const Navbar:FC<NavbarProps> = (props) => {
                 <AppLink to={'/about'} theme={AppLinkTheme.SECONDARY}>{t("О нас")}</AppLink>
             </div>
                 <Modal isOpen={isAuthModal} onClose={toggleAuthModal}>
-                    Modal window text
                 </Modal>
         </div>
     );
