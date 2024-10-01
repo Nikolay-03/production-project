@@ -1,6 +1,6 @@
 export {AppLink, AppLinkTheme} from './AppLink/AppLink'
 export {ThemeSwitcher} from './ThemeSwitcher/ThemeSwitcher'
-export {Button, ThemeButton} from './Button/Button'
+export {Button, ButtonTheme} from './Button/Button'
 export {LangSwitcher} from './LangSwitcher/LangSwitcher'
 export {Loader} from './Loader/Loader'
 export {Modal} from './Modal/Modal'
