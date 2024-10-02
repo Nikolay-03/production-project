@@ -3,22 +3,28 @@ import {ReactNode} from "react";
 import {render} from "@testing-library/react";
 import i18nForTest from "shared/config/i18n/i18nForTest";
 import {MemoryRouter} from "react-router-dom";
+import {StateSchema, StoreProvider} from "app/providers/StoreProvider";
+import {Provider} from "react-redux";
 
 interface ComponentRenderOptions{
-    route?:string
+    route?:string,
+    initialState?: Partial<StateSchema>
 }
 
 export const componentRender = (component: ReactNode, options: ComponentRenderOptions = {}) => {
     const {
-        route = '/'
+        route = '/',
+        initialState,
     } = options
     return (
         render(
-            <MemoryRouter initialEntries={[route]}>
-                <I18nextProvider i18n={i18nForTest}>
-                    {component}
-                </I18nextProvider>
-            </MemoryRouter>
+            <StoreProvider initialState={initialState as StateSchema}>
+                <MemoryRouter initialEntries={[route]}>
+                    <I18nextProvider i18n={i18nForTest}>
+                        {component}
+                    </I18nextProvider>
+                </MemoryRouter>
+            </StoreProvider>
         )
     );
 };
