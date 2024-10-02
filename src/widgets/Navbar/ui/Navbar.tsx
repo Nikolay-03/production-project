@@ -26,6 +26,7 @@ export const Navbar:FC<NavbarProps> = (props) => {
                 </Button>
             </div>
                 <Modal isOpen={isAuthModal} onClose={toggleAuthModal}>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut corporis debitis dolores maxime nisi perferendis quaerat quam similique voluptas voluptatum. Ad aliquid beatae, corporis cumque deserunt dolor ea eligendi eos esse eum, excepturi facere id iste iure laboriosam maxime minima nemo qui quisquam quos, reiciendis saepe soluta unde vero voluptates. Alias architecto earum excepturi iusto possimus reprehenderit sint! Ab accusantium aut dolor, ea eum eveniet ex illum in itaque laudantium libero molestias mollitia natus obcaecati odit quasi quia ratione rerum similique suscipit tempora ut vel! A commodi consectetur, dolor, eligendi enim est ipsa maxime nam non optio, sunt suscipit velit!
                 </Modal>
         </div>
     );
