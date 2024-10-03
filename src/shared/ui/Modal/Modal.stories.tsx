@@ -26,7 +26,7 @@ type Story = StoryObj<typeof meta>;
 
 export const ModalLight: Story = {
 };
-// export const ModalDark: Story = {
-// };
-// ModalDark.decorators = [ThemeDecorator(Theme.DARK)]
+export const ModalDark: Story = {
+};
+ModalDark.decorators = [ThemeDecorator(Theme.DARK)]
 
