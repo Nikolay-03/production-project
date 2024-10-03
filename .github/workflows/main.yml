@@ -3,10 +3,10 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
   push:
     branches:
-      - develop # только для разработки
+      - main
   pull_request:
     branches:
-      - develop
+      - main
 
 jobs:
   pipeline:
