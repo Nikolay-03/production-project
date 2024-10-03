@@ -1,4 +1,4 @@
-name: linting,testing,build
+name: linting, testing, build
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
   push:
@@ -36,6 +36,9 @@ jobs:
         if: always()
       - name: build storybook
         run: npm run storybook:build
+        if: always()
+      - name: screenshot testing - update references
+        run: npx loki update
         if: always()
       - name: screenshot testing
         run: npm run test:ui:ci
