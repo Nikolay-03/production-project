@@ -10,7 +10,7 @@ on:
 
 jobs:
   pipeline:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [22.2.0]
