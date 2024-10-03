@@ -4,7 +4,6 @@ import {render} from "@testing-library/react";
 import i18nForTest from "shared/config/i18n/i18nForTest";
 import {MemoryRouter} from "react-router-dom";
 import {StateSchema, StoreProvider} from "app/providers/StoreProvider";
-import {Provider} from "react-redux";
 
 interface ComponentRenderOptions{
     route?:string,
