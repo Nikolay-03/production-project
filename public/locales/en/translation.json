@@ -9,8 +9,13 @@
   "Произошла непредвиденная ошибка": "Something went wrong",
   "Перезагрузить страницу": "Reload page",
   "Войти": "Log in",
+  "Выйти": "Logout",
   "Короткий язык": "En",
   "Значение": "Value",
   "Увеличить": "Increment",
-  "Уменьшить": "Decrement"
+  "Уменьшить": "Decrement",
+  "Форма авторизации": "Authorization form",
+  "Введено неверное имя пользователя или пароль":"Wrong username or password",
+  "Введте имя пользователя": "Enter the user name",
+  "Введите пароль": "Enter the password"
 }

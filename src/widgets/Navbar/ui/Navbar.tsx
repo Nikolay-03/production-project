@@ -1,34 +1,55 @@
 import React, {FC, useCallback, useState} from 'react';
 import cls from './Navbar.module.scss'
 import {classNames} from "shared/lib/helpers";
-import {Button, Modal, ButtonTheme} from "shared/ui";
+import {Button, ButtonTheme} from "shared/ui";
 import {useTranslation} from "react-i18next";
+import {LoginModal} from "features/AuthByUsername";
+import {useDispatch, useSelector} from "react-redux";
+import {getUserAuthData, userActions} from "entities/User";
 
-interface NavbarProps{
-    className?:string
+interface NavbarProps {
+    className?: string
 }
 
-export const Navbar:FC<NavbarProps> = (props) => {
+export const Navbar: FC<NavbarProps> = (props) => {
     const {className} = props
     const {t} = useTranslation()
+    const userAuthData = useSelector(getUserAuthData)
+    const dispatch = useDispatch()
     const [isAuthModal, setAuthModal] = useState<boolean>(false)
-    const toggleAuthModal = useCallback(() => {
-        setAuthModal(prevState => !prevState)
-    },[])
+    const onOpenAuthModal = useCallback(() => {
+        setAuthModal(true)
+    }, [])
+    const onCloseAuthModal = useCallback(() => {
+        setAuthModal(false)
+    }, [])
+    const onLogout = useCallback(() => {
+        dispatch(userActions.logout())
+    }, [dispatch])
+
+    if (userAuthData) {
+        return (
+            <div className={classNames(cls.Navbar, {}, [className])}>
+                <Button
+                    theme={ButtonTheme.CLEAR_INVERTED}
+                    onClick={onLogout}
+                >
+                    {t('Выйти')}
+                </Button>
+            </div>
+        )
+    }
     return (
         <div className={classNames(cls.Navbar, {}, [className])}>
             <div>
                 <Button
                     theme={ButtonTheme.CLEAR_INVERTED}
-                    onClick={toggleAuthModal}
+                    onClick={onOpenAuthModal}
                 >
                     {t('Войти')}
                 </Button>
             </div>
-            {/* eslint-disable-next-line i18next/no-literal-string */}
-                <Modal isOpen={isAuthModal} onClose={toggleAuthModal}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut corporis debitis dolores maxime nisi perferendis quaerat quam similique voluptas voluptatum. Ad aliquid beatae, corporis cumque deserunt dolor ea eligendi eos esse eum, excepturi facere id iste iure laboriosam maxime minima nemo qui quisquam quos, reiciendis saepe soluta unde vero voluptates. Alias architecto earum excepturi iusto possimus reprehenderit sint! Ab accusantium aut dolor, ea eum eveniet ex illum in itaque laudantium libero molestias mollitia natus obcaecati odit quasi quia ratione rerum similique suscipit tempora ut vel! A commodi consectetur, dolor, eligendi enim est ipsa maxime nam non optio, sunt suscipit velit!
-                </Modal>
+            <LoginModal isOpen={isAuthModal} onClose={onCloseAuthModal}/>
         </div>
     );
 };
