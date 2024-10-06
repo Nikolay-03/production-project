@@ -3,5 +3,5 @@ import {getLoginState} from "../getLoginState/getLoginState";
 
 export const getLoginLoading = createSelector(
     getLoginState,
-    (state) => state?.isLoading
+    (state) => state?.isLoading || false
 )
