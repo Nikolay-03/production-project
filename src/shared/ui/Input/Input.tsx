@@ -20,7 +20,7 @@ export const Input = memo((props: InputProps) => {
         ...otherProps
     } = props
     const [isFocused, setIsFocused] = useState(false)
-    const [caretPosition, setCaretPosition] = useState(value.length || 0)
+    const [caretPosition, setCaretPosition] = useState(value?.length || 0)
     const ref = useRef<HTMLInputElement>()
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange?.(e.target.value)
