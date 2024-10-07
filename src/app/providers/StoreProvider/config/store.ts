@@ -3,8 +3,16 @@ import {StateSchema} from "./StateSchema";
 import {counterReducer} from "entities/Counter";
 import {userReducer} from "entities/User";
 import {createReducerManager} from "./ReducerManager";
+import {$api} from "shared/api";
+import type {To} from "@remix-run/router";
+import type {NavigateOptions} from "react-router/dist/lib/context";
 
-export const createReduxStore = (initialState?: StateSchema,asyncReducers?: Partial<ReducersMapObject<StateSchema>>) => {
+export const createReduxStore = (
+    initialState?: StateSchema,
+    asyncReducers?: Partial<ReducersMapObject<StateSchema>>,
+    navigate?: (to: To, options?: NavigateOptions) => void
+) =>
+{
     const rootReducer: ReducersMapObject<StateSchema> = {
         ...asyncReducers,
         counter: counterReducer,
@@ -13,7 +21,15 @@ export const createReduxStore = (initialState?: StateSchema,asyncReducers?: Part
     const reducerManager = createReducerManager(rootReducer);
     const store = configureStore<StateSchema>({
         reducer: reducerManager.reduce,
-        preloadedState: initialState
+        preloadedState: initialState,
+        middleware: getDefaultMiddleware => getDefaultMiddleware({
+            thunk: {
+                extraArgument: {
+                    api: $api,
+                    navigate
+                }
+            }
+        })
     })
     // @ts-ignore
     store.reducerManager = reducerManager;

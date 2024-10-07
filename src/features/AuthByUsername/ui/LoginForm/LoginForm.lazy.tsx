@@ -1,6 +1,7 @@
-import {lazy} from "react";
+import {FC, lazy} from "react";
+import {LoginFormProps} from "./LoginForm";
 
-export const LoginFormLazy = lazy(() => new Promise(res => {
+export const LoginFormLazy = lazy<FC<LoginFormProps>>(() => new Promise(res => {
     //@ts-ignore
     setTimeout(() => res(import('./LoginForm')), 2000)
 }));

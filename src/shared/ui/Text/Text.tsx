@@ -1,6 +1,6 @@
 import {FC} from 'react';
 import cls from './Text.module.scss'
-import {classNames} from "shared/lib/helpers";
+import {classNames} from "shared/lib";
 
 export enum TextTheme{
     "PRIMARY" = 'primary',

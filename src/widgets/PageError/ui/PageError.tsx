@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import cls from './PageError.module.scss'
-import {classNames} from "shared/lib/helpers";
 import {useTranslation} from "react-i18next";
+import {classNames} from "shared/lib";
 
 interface PageErrorProps{
     className?:string

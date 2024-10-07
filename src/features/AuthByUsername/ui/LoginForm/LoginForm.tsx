@@ -1,20 +1,20 @@
 import {memo, useCallback} from 'react';
 import cls from './LoginForm.module.scss'
-import {classNames, DynamicModuleLoader} from "shared/lib/helpers";
 import {Button, ButtonTheme, Input, Text, TextTheme} from "shared/ui";
 import {useTranslation} from "react-i18next";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {loginActions, loginReducer} from "../../model/slice/loginSlice";
 import {loginByUsername} from "../../model/api/loginByUsername/loginByUsername";
-import {AppDispatch} from "app/providers/StoreProvider/config/store";
 import {getLoginError} from "../../model/selectors/getLoginError/getLoginError";
 import {getLoginUsername} from "../../model/selectors/getLoginUsername/getLoginUsername";
 import {getLoginLoading} from "../../model/selectors/getLoginLoading/getLoginLoading";
 import {getLoginPassword} from "../../model/selectors/getLoginPassword/getLoginPassword";
-import {ReducersList} from "shared/lib/helpers/components/DynamicModuleLoader";
+import {DynamicModuleLoader, ReducersList} from "shared/lib/components/DynamicModuleLoader";
+import {classNames, useAppDispatch} from "shared/lib";
 
-interface LoginFormProps{
-    className?:string
+export interface LoginFormProps{
+    className?:string;
+    onSuccess?:() => void
 }
 
 const initialReducers: ReducersList = {
@@ -22,13 +22,13 @@ const initialReducers: ReducersList = {
 }
 
 const LoginForm = memo((props: LoginFormProps) => {
-    const {className} = props
+    const {className, onSuccess} = props
     const {t} = useTranslation()
     const error = useSelector(getLoginError)
     const username = useSelector(getLoginUsername)
     const isLoading = useSelector(getLoginLoading)
     const password = useSelector(getLoginPassword)
-    const dispatch: AppDispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const onUsernameChange = useCallback((value: string) => {
         dispatch(loginActions.setUsername(value))
     },[dispatch])
@@ -37,9 +37,12 @@ const LoginForm = memo((props: LoginFormProps) => {
         dispatch(loginActions.setPassword(value))
     },[dispatch])
 
-    const onLoginClick = useCallback(() => {
-        dispatch(loginByUsername({username,password}))
-    },[dispatch, username, password])
+    const onLoginClick = useCallback(async () => {
+        const result = await dispatch(loginByUsername({username,password}))
+        if(result.meta.requestStatus === 'fulfilled'){
+            onSuccess()
+        }
+    },[onSuccess, dispatch, username, password])
 
     return (
         <DynamicModuleLoader

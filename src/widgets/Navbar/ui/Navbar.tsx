@@ -1,11 +1,11 @@
 import React, {FC, useCallback, useState} from 'react';
 import cls from './Navbar.module.scss'
-import {classNames} from "shared/lib/helpers";
 import {Button, ButtonTheme} from "shared/ui";
 import {useTranslation} from "react-i18next";
 import {LoginModal} from "features/AuthByUsername";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserAuthData, userActions} from "entities/User";
+import {classNames} from "shared/lib";
 
 interface NavbarProps {
     className?: string
@@ -23,7 +23,7 @@ export const Navbar: FC<NavbarProps> = (props) => {
     const onCloseAuthModal = useCallback(() => {
         setAuthModal(false)
     }, [])
-    const onLogout = useCallback(() => {
+    const onLogout = useCallback(async () => {
         dispatch(userActions.logout())
     }, [dispatch])
 
