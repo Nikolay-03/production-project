@@ -50,14 +50,5 @@
       "postId": "1"
     }
   ],
-  "profile": {
-    "firstname": "Николай",
-    "lastname": "Ильницкий",
-    "age": 18,
-    "country": "Russia",
-    "currency": "RUB",
-    "city": "Санкт-Петербург",
-    "username": "admin",
-    "avatar": "https://pbs.twimg.com/media/DFXE2UWXYAEGvZW.jpg"
-  }
+  "profile": {}
 }

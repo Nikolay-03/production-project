@@ -7,7 +7,9 @@ const meta = {
     title: 'features/LoginForm',
     component: LoginForm,
     tags: ['autodocs'],
-    args: {},
+    args: {
+        onSuccess:() => console.log('onSuccess')
+    },
 } satisfies Meta<typeof LoginForm>;
 
 export default meta;

@@ -5,7 +5,7 @@ type InputHTMLProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onC
 interface InputProps extends InputHTMLProps{
     className?:string
     value?:string
-    onChange?:(value?:string) => void,
+    onChange?:(value:string) => void,
     autofocus?: boolean
 }
 
@@ -21,7 +21,7 @@ export const Input = memo((props: InputProps) => {
     } = props
     const [isFocused, setIsFocused] = useState(false)
     const [caretPosition, setCaretPosition] = useState(value?.length || 0)
-    const ref = useRef<HTMLInputElement>()
+    const ref = useRef<HTMLInputElement | null>(null)
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange?.(e.target.value)
         setCaretPosition(e.target.value.length)
@@ -33,7 +33,9 @@ export const Input = memo((props: InputProps) => {
         setIsFocused(false)
     }
     const onSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCaretPosition(e.target.selectionStart)
+        if(e.target && e.target.selectionStart){
+            setCaretPosition(e.target.selectionStart)
+        }
     }
     useEffect(() => {
         if(autofocus){

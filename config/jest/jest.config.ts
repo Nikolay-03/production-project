@@ -12,7 +12,7 @@ export default {
 
     // The directory where Jest should store its cached dependency information
     // cacheDirectory: "/private/var/folders/kd/0hw2tl610n9d82jh0dpnp2zr0000gn/T/jest_dx",
-
+    testEnvironment: 'jsdom',
     // Automatically clear mock calls, instances and results before every test
     globals: {
         __IS_DEV__: true,
@@ -25,7 +25,7 @@ export default {
     setupFilesAfterEnv: ['<rootDir>config/jest/setupTests.ts'],
     clearMocks: true,
     coveragePathIgnorePatterns: [
-        "/node_modules/"
+        '\\\\node_modules\\\\',
     ],
     moduleDirectories: [
         "node_modules",
@@ -45,6 +45,7 @@ export default {
         '\\.(s?css)$': 'identity-obj-proxy',
         "\\.svg": "<rootDir>config/jest/jestEmptyComponent.tsx"
     },
+
     // Indicates whether the coverage information should be collected while executing the test
     // collectCoverage: false,
 
@@ -152,7 +153,6 @@ export default {
     // snapshotSerializers: [],
 
     // The test environment that will be used for testing
-    testEnvironment: "jsdom",
 
     // Options that will be passed to the testEnvironment
     // testEnvironmentOptions: {},

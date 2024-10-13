@@ -10,7 +10,6 @@ import type {NavigateOptions} from "react-router/dist/lib/context";
 export interface StateSchema {
     counter: CounterSchema
     user: UserSchema
-
     loginForm?: LoginSchema
     profile?: ProfileSchema
 }
@@ -29,9 +28,9 @@ export interface ReduxStoreWithManager extends EnhancedStore<StateSchema> {
     reducerManager: ReducerManager
 }
 
-interface ThunkExtraArg {
+export interface ThunkExtraArg {
     api: AxiosInstance,
-    navigate: (to: To, options?: NavigateOptions) => void
+    navigate?: (to: To, options?: NavigateOptions) => void
 }
 export interface ThunkConfig<T>{
     rejectValue:T,

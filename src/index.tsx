@@ -7,7 +7,7 @@ import 'app/styles/index.scss'
 import {StoreProvider} from "app/providers/StoreProvider";
 
 const container = document.getElementById('root');
-const root = createRoot(container);
+const root = createRoot(container!);
 root.render(
     <BrowserRouter>
         <StoreProvider>

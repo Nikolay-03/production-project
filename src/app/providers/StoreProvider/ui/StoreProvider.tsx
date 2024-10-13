@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 interface StoreProviderProps{
     children:ReactNode;
     initialState?:StateSchema;
-    asyncReducers?: Partial<ReducersMapObject<StateSchema>>;
+    asyncReducers?: DeepPartial<ReducersMapObject<StateSchema>>;
 }
 
 export const StoreProvider:FC<StoreProviderProps> = (props) => {
@@ -18,7 +18,10 @@ export const StoreProvider:FC<StoreProviderProps> = (props) => {
         asyncReducers
     } = props
     const navigate = useNavigate()
-    const store = createReduxStore(initialState, asyncReducers, navigate)
+    const store = createReduxStore(
+        initialState,
+        asyncReducers as ReducersMapObject<StateSchema>,
+        navigate)
     return (
         <Provider store={store}>
             {children}

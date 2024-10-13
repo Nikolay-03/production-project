@@ -11,10 +11,11 @@ import {getLoginLoading} from "../../model/selectors/getLoginLoading/getLoginLoa
 import {getLoginPassword} from "../../model/selectors/getLoginPassword/getLoginPassword";
 import {DynamicModuleLoader, ReducersList} from "shared/lib/components/DynamicModuleLoader";
 import {classNames, useAppDispatch} from "shared/lib";
+import {AsyncThunkAction} from "@reduxjs/toolkit";
 
 export interface LoginFormProps{
     className?:string;
-    onSuccess?:() => void
+    onSuccess:() => void
 }
 
 const initialReducers: ReducersList = {
@@ -38,16 +39,16 @@ const LoginForm = memo((props: LoginFormProps) => {
     },[dispatch])
 
     const onLoginClick = useCallback(async () => {
-        const result = await dispatch(loginByUsername({username,password}))
-        if(result.meta.requestStatus === 'fulfilled'){
-            onSuccess()
+        const result = await dispatch(loginByUsername({ username, password }));
+        if (result.meta.requestStatus === 'fulfilled') {
+            onSuccess();
         }
-    },[onSuccess, dispatch, username, password])
+    }, [onSuccess, dispatch, password, username]);
 
     return (
         <DynamicModuleLoader
             reducers={initialReducers}
-            removeAfterUnmount={true}
+            removeAfterUnmount
         >
             <div className={classNames(cls.LoginForm, {}, [className])}>
                 <Text title={t('Форма авторизации')}/>

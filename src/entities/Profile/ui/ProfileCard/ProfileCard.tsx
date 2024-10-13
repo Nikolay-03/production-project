@@ -1,12 +1,13 @@
 import {FC} from 'react';
 import cls from './ProfileCard.module.scss'
-import {classNames} from "shared/lib";
+import {classNames, useAppDispatch} from "shared/lib";
 import {useSelector} from "react-redux";
 import {getProfileData} from "../../model/selectors/getProfileData/getProfileData";
 import {getProfileIsLoading} from "../../model/selectors/getProfileIsLoading/getProfileIsLoading";
 import {getProfileError} from "../../model/selectors/getProfileError/getProfileError";
 import {Button, ButtonTheme, Input, Text} from "shared/ui";
 import {useTranslation} from "react-i18next";
+import {loginByUsername} from "features/AuthByUsername/model/api/loginByUsername/loginByUsername";
 
 interface ProfileCardProps{
     className?:string

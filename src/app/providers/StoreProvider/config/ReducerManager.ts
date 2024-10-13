@@ -3,7 +3,6 @@ import {ReducerManager, StateSchema, StateSchemaKey} from "app/providers/StorePr
 
 export function createReducerManager(initialReducers: ReducersMapObject<StateSchema>): ReducerManager {
     const reducers = { ...initialReducers }
-
     let combinedReducer = combineReducers(reducers)
 
     let keysToRemove: Array<StateSchemaKey> = []
@@ -11,7 +10,7 @@ export function createReducerManager(initialReducers: ReducersMapObject<StateSch
     return {
         getReducerMap: () => reducers,
 
-        reduce: (state: StateSchema, action: UnknownAction) => {
+        reduce: (state: StateSchema, action: UnknownAction):StateSchema => {
             if (keysToRemove.length > 0) {
                 state = { ...state }
                 for (const key of keysToRemove) {
@@ -20,6 +19,7 @@ export function createReducerManager(initialReducers: ReducersMapObject<StateSch
                 keysToRemove = []
             }
 
+            // @ts-ignore
             return combinedReducer(state, action)
         },
 

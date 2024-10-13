@@ -10,25 +10,26 @@ export default ({config} : {config: webpack.Configuration}) => {
         entry:'',
         src: path.resolve(__dirname, '..', '..', 'src')
     }
-    config.resolve.modules.unshift(paths.src)
-    config.resolve.extensions.push('.ts', '.tsx')
-    config.module.rules = config.module.rules.map((rule: webpack.RuleSetRule) => {
+    config!.resolve!.modules!.unshift(paths.src)
+    config!.resolve!.extensions!.push('.ts', '.tsx')
+    // @ts-ignore
+    config!.module!.rules = config!.module!.rules!.map((rule: webpack.RuleSetRule) => {
         if(/svg/.test(rule.test as string)) {
             return {...rule, exclude: /\.svg$/i}
         }
         return  rule
     })
-    config.module.rules.push({
+    config!.module!.rules.push({
         test: /\.svg$/i,
         issuer: /\.[jt]sx?$/,
         use: ['@svgr/webpack'],
     })
-    config.module.rules.push(buildCssLoader(true))
-    config.plugins.push(new webpack.ProvidePlugin({
+    config!.module!.rules.push(buildCssLoader(true))
+    config!.plugins!.push(new webpack.ProvidePlugin({
         'React': 'react',
     }));
 
-    config.plugins.push(new webpack.DefinePlugin({
+    config!.plugins!.push(new webpack.DefinePlugin({
         __IS_DEV__:true,
         __API__: ''
     }))
