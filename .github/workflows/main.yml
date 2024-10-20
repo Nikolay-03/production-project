@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  pipeline:
+  node-npm:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,24 +23,50 @@ jobs:
           node-version: ${{matrix.node}}
       - name: install modules
         run: npm install
-      - name: build production project
-        run: npm run build:prod
-        if: always()
+  linting:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 22.2.0 ]
+    needs: [node-npm]
+    steps:
       - name: linting typescript
         run: npm run lint:ts
-        if: always()
       - name: linting css
         run: npm run lint:scss
-        if: always()
+  unit-testing:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 22.2.0 ]
+    needs: [node-npm]
+    steps:
       - name: unit testing
         run: npm run test:unit
-        if: always()
+  build-project:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 22.2.0 ]
+    needs: [linting, unit-testing]
+    steps:
+      - name: build production project
+        run: npm run build:prod
+  build-storybook:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 22.2.0 ]
+    needs: [node-npm]
+    steps:
       - name: build storybook
         run: npm run storybook:build
-        if: always()
-      - name: update screenshots
-        run: npm run test:ui:ci:up
-        if: always()
+  screenshot-testing:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 22.2.0 ]
+    needs: [build-storybook]
+    steps:
       - name: screenshot testing
         run: npm run test:ui:ci
-        if: always()
