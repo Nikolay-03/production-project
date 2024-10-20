@@ -19,3 +19,4 @@ root.render(
         </StoreProvider>
     </BrowserRouter>
 )
+export {Currency} from "entities/Currency/model/types/currency";

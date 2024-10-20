@@ -19,7 +19,8 @@ export default (env:BuildEnv) => {
         paths: paths,
         isDev,
         port: PORT,
-        apiUrl:API
+        apiUrl:API,
+        project: 'frontend',
     })
     return config
 }

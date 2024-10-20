@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Profile, ProfileSchema} from "../types/profile";
 import {fetchProfileData} from "../api/fetchProfileData/fetchProfileData";
+import {updateProfileData} from "../api/updateProfileData/updateProfileData";
 
 const initialState: ProfileSchema = {
     isLoading:false,
@@ -12,7 +13,21 @@ const initialState: ProfileSchema = {
 export const profileSlice = createSlice({
     name: 'profile',
     initialState,
-    reducers: {},
+    reducers: {
+        setReadonly:(state, action: PayloadAction<boolean>) => {
+            state.readonly = action.payload
+        },
+        cancelEdit:(state) => {
+            state.form = state.data
+            state.readonly = true
+        },
+        updateData:(state, action: PayloadAction<Profile>) => {
+            state.form = {
+                ...state.form,
+                ...action.payload
+            }
+        }
+    },
     extraReducers:
         (builder) => {
             builder.addCase(fetchProfileData.pending, (state) => {
@@ -22,8 +37,23 @@ export const profileSlice = createSlice({
             builder.addCase(fetchProfileData.fulfilled, (state, action: PayloadAction<Profile>) => {
                 state.isLoading = false
                 state.data = action.payload
+                state.form = action.payload
             })
             builder.addCase(fetchProfileData.rejected, (state, action) => {
+                state.error = action.payload
+                state.isLoading = false
+            })
+            builder.addCase(updateProfileData.pending, (state) => {
+                state.isLoading = true
+                state.error = undefined
+            })
+            builder.addCase(updateProfileData.fulfilled, (state, action: PayloadAction<Profile>) => {
+                state.isLoading = false
+                state.data = action.payload
+                state.readonly = true
+                state.form = action.payload
+            })
+            builder.addCase(updateProfileData.rejected, (state, action) => {
                 state.error = action.payload
                 state.isLoading = false
             })

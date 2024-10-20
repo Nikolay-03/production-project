@@ -50,5 +50,14 @@
       "postId": "1"
     }
   ],
-  "profile": {}
+  "profile": {
+    "firstname": "Николай",
+    "lastname": "Ильницкий",
+    "age": 18,
+    "country": "Ukraine",
+    "currency": "USD",
+    "city": "Санкт-Петербург",
+    "username": "admin",
+    "avatar": "https://avatarfiles.alphacoders.com/324/thumb-1920-324379.png"
+  }
 }
