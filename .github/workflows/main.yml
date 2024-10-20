@@ -21,15 +21,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.node}}
-      - name: install modules
-        run: npm install
-      - name: Cache node modules
+      - name: Cache deps
       - uses: actions/cache@v3
         with:
-         path: node_modules
-         key: ${{ runner.os }}-node_modules-${{ hashFiles('package-lock.json') }}
-         restore-keys: |
-           ${{ runner.os }}-node_modules-
+          path: ~/.npm
+          key: node-modules-${{hashFiles('**/package-lock.json')}}
+      - name: install modules
+        run: npm install
   linting:
     runs-on: ubuntu-latest
     strategy:
@@ -37,13 +35,15 @@ jobs:
         node: [18.x, 20.x, 22.x]
     needs: [ node-npm ]
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Restore node modules cache
-        uses: actions/cache@v3
+      - name: Check out repository code
+      - uses: actions/checkout@v4
+      - name: Cache deps
+      - uses: actions/cache@v3
         with:
-          path: node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package-lock.json') }}
+          path: ~/.npm
+          key: node-modules-${{hashFiles('**/package-lock.json')}}
+      - name: install modules
+        run: npm install
       - name: linting typescript
         run: npm run lint:ts
       - name: linting css
@@ -55,13 +55,15 @@ jobs:
         node: [18.x, 20.x, 22.x]
     needs: [ node-npm ]
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Restore node modules cache
-        uses: actions/cache@v3
+      - name: Check out repository code
+      - uses: actions/checkout@v4
+      - name: Cache deps
+      - uses: actions/cache@v3
         with:
-          path: node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package-lock.json') }}
+          path: ~/.npm
+          key: node-modules-${{hashFiles('**/package-lock.json')}}
+      - name: install modules
+        run: npm install
       - name: unit testing
         run: npm run test:unit
   build-storybook:
@@ -71,13 +73,15 @@ jobs:
         node: [18.x, 20.x, 22.x]
     needs: [ node-npm ]
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Restore node modules cache
-        uses: actions/cache@v3
+      - name: Check out repository code
+      - uses: actions/checkout@v4
+      - name: Cache deps
+      - uses: actions/cache@v3
         with:
-          path: node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package-lock.json') }}
+          path: ~/.npm
+          key: node-modules-${{hashFiles('**/package-lock.json')}}
+      - name: install modules
+        run: npm install
       - name: build storybook
         run: npm run storybook:build
   build-project:
@@ -87,13 +91,15 @@ jobs:
         node: [18.x, 20.x, 22.x]
     needs: [ linting, unit-testing ]
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Restore node modules cache
-        uses: actions/cache@v3
+      - name: Check out repository code
+      - uses: actions/checkout@v4
+      - name: Cache deps
+      - uses: actions/cache@v3
         with:
-          path: node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package-lock.json') }}
+          path: ~/.npm
+          key: node-modules-${{hashFiles('**/package-lock.json')}}
+      - name: install modules
+        run: npm install
       - name: build production project
         run: npm run build:prod
   screenshot-testing:
@@ -103,12 +109,14 @@ jobs:
         node: [18.x, 20.x, 22.x]
     needs: [ build-storybook ]
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Restore node modules cache
-        uses: actions/cache@v3
+      - name: Check out repository code
+      - uses: actions/checkout@v4
+      - name: Cache deps
+      - uses: actions/cache@v3
         with:
-          path: node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package-lock.json') }}
+          path: ~/.npm
+          key: node-modules-${{hashFiles('**/package-lock.json')}}
+      - name: install modules
+        run: npm install
       - name: screenshot testing
         run: npm run test:ui:ci
