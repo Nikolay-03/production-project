@@ -30,9 +30,9 @@ jobs:
         run: npm install
   linting:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [18.x, 20.x, 22.x]
+#    strategy:
+#      matrix:
+#        node: [18.x, 20.x, 22.x]
     needs: [ node-npm ]
     steps:
       - name: Check out repository code
@@ -50,9 +50,9 @@ jobs:
         run: npm run lint:scss
   unit-testing:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [18.x, 20.x, 22.x]
+#    strategy:
+#      matrix:
+#        node: [18.x, 20.x, 22.x]
     needs: [ node-npm ]
     steps:
       - name: Check out repository code
@@ -68,9 +68,9 @@ jobs:
         run: npm run test:unit
   build-storybook:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [18.x, 20.x, 22.x]
+#    strategy:
+#      matrix:
+#        node: [18.x, 20.x, 22.x]
     needs: [ node-npm ]
     steps:
       - name: Check out repository code
@@ -86,9 +86,9 @@ jobs:
         run: npm run storybook:build
   build-project:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [18.x, 20.x, 22.x]
+#    strategy:
+#      matrix:
+#        node: [18.x, 20.x, 22.x]
     needs: [ linting, unit-testing ]
     steps:
       - name: Check out repository code
@@ -104,9 +104,9 @@ jobs:
         run: npm run build:prod
   screenshot-testing:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [18.x, 20.x, 22.x]
+#    strategy:
+#      matrix:
+#        node: [18.x, 20.x, 22.x]
     needs: [ build-storybook ]
     steps:
       - name: Check out repository code
