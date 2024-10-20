@@ -118,7 +118,5 @@ jobs:
           key: node-modules-${{hashFiles('**/package-lock.json')}}
       - name: install modules
         run: npm install
-      - name: update
-        run: npm run test:ui:ci:up
       - name: screenshot testing
         run: npm run test:ui:ci
