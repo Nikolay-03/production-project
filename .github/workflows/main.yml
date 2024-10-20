@@ -1,6 +1,5 @@
 name: CI Pipeline
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-
 on:
   push:
     branches:
@@ -10,7 +9,6 @@ on:
       - main
 
 jobs:
-  # Установка зависимостей Node.js
   node-npm:
     runs-on: ubuntu-latest
     strategy:
@@ -19,22 +17,17 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-
-      - name: Starting Node.js ${{ matrix.node }}
+      - name: Starting Node.js ${{matrix.node}}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
-
+          node-version: ${{matrix.node}}
       - name: Cache deps
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: node-modules-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install modules
+          key: node-modules-${{hashFiles('**/package-lock.json')}}
+      - name: install modules
         run: npm install
-
-  # Линтинг
   linting:
     runs-on: ubuntu-latest
     strategy:
@@ -44,23 +37,17 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-
       - name: Cache deps
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: node-modules-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install modules
+          key: node-modules-${{hashFiles('**/package-lock.json')}}
+      - name: install modules
         run: npm install
-
-      - name: Linting TypeScript
+      - name: linting typescript
         run: npm run lint:ts
-
-      - name: Linting SCSS
+      - name: linting css
         run: npm run lint:scss
-
-  # Unit-тесты
   unit-testing:
     runs-on: ubuntu-latest
     strategy:
@@ -70,20 +57,15 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-
       - name: Cache deps
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: node-modules-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install modules
+          key: node-modules-${{hashFiles('**/package-lock.json')}}
+      - name: install modules
         run: npm install
-
-      - name: Run unit tests
+      - name: unit testing
         run: npm run test:unit
-
-  # Сборка Storybook
   build-storybook:
     runs-on: ubuntu-latest
     strategy:
@@ -93,20 +75,15 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-
       - name: Cache deps
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: node-modules-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install modules
+          key: node-modules-${{hashFiles('**/package-lock.json')}}
+      - name: install modules
         run: npm install
-
-      - name: Build Storybook
+      - name: build storybook
         run: npm run storybook:build
-
-  # Сборка проекта
   build-project:
     runs-on: ubuntu-latest
     strategy:
@@ -116,20 +93,15 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-
       - name: Cache deps
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: node-modules-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install modules
+          key: node-modules-${{hashFiles('**/package-lock.json')}}
+      - name: install modules
         run: npm install
-
-      - name: Build production project
+      - name: build production project
         run: npm run build:prod
-
-  # Скриншот-тестирование
   screenshot-testing:
     runs-on: ubuntu-latest
     strategy:
@@ -139,15 +111,12 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-
       - name: Cache deps
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: node-modules-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install modules
+          key: node-modules-${{hashFiles('**/package-lock.json')}}
+      - name: install modules
         run: npm install
-
-      - name: Screenshot testing
+      - name: screenshot testing
         run: npm run test:ui:ci
