@@ -106,13 +106,13 @@ export const ProfileCard: FC<ProfileCardProps> = (props) => {
                     readonly={readonly}
                     onChange={onChangeUsername}
                 />
-                <Input
-                    value={data?.avatar}
-                    placeholder={t("Ваш аватар")}
-                    className={cls.input}
-                    readonly={readonly}
-                    onChange={onChangeAvatar}
-                />
+                {/*<Input*/}
+                {/*    value={data?.avatar}*/}
+                {/*    placeholder={t("Ваш аватар")}*/}
+                {/*    className={cls.input}*/}
+                {/*    readonly={readonly}*/}
+                {/*    onChange={onChangeAvatar}*/}
+                {/*/>*/}
                 <CurrencySelect
                     className={cls.input}
                     value={data?.currency}
