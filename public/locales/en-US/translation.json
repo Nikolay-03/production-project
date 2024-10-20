@@ -1,0 +1,22 @@
+{
+  "Тестовый пример": "Test example",
+  "Перевод": "translation",
+  "Язык": "English",
+  "Страница не найдена": "Page not found",
+  "Расширение": "Expansion",
+  "Главная": "Main",
+  "О нас": "About us",
+  "Профиль": "Profile",
+  "Произошла непредвиденная ошибка": "Something went wrong",
+  "Перезагрузить страницу": "Reload page",
+  "Войти": "Log in",
+  "Выйти": "Logout",
+  "Короткий язык": "En",
+  "Значение": "Value",
+  "Увеличить": "Increment",
+  "Уменьшить": "Decrement",
+  "Форма авторизации": "Authorization form",
+  "Введено неверное имя пользователя или пароль":"Wrong username or password",
+  "Введте имя пользователя": "Enter the user name",
+  "Введите пароль": "Enter the password"
+}

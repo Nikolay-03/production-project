@@ -11,10 +11,10 @@ interface CountrySelectProps{
     onChange?:(value:Country) => void
 }
 const options = [
-    {value:Country.Russia, content: Country.Russia},
+    {value:Country.RUSSIA, content: Country.RUSSIA},
     {value:Country.USA, content: Country.USA},
-    {value:Country.Ukraine, content: Country.Ukraine},
-    {value:Country.Belarus, content: Country.Belarus}
+    {value:Country.UKRAINE, content: Country.UKRAINE},
+    {value:Country.BELARUS, content: Country.BELARUS}
 ]
 export const CountrySelect = memo((props: CountrySelectProps) => {
     const {
@@ -23,7 +23,7 @@ export const CountrySelect = memo((props: CountrySelectProps) => {
         onChange,
         readonly
     } = props
-    const {t} = useTranslation()
+    const {t} = useTranslation('profile')
     const onChangeHandler = useCallback((value:string) => {
         onChange?.(value as Country)
     },[onChange])

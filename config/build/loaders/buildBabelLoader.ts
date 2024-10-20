@@ -11,7 +11,16 @@ export function buildBabelLoader({isDev}: BuildOptions) {
                 presets: [
                     ['@babel/preset-env']
                 ],
-                plugins: [isDev && require.resolve('react-refresh/babel')].filter(Boolean),
+                plugins: [
+                    [
+                        'i18next-extract',
+                        {
+                            locales: ['ru', 'en'],
+                            keyAsDefaultValue: true,
+                        },
+                    ],
+                    isDev && require.resolve('react-refresh/babel'),
+                ].filter(Boolean),
             }
         }
     }

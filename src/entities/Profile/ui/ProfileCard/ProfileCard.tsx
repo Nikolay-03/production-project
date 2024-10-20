@@ -101,7 +101,7 @@ export const ProfileCard: FC<ProfileCardProps> = (props) => {
                 />
                 <Input
                     value={data?.username}
-                    placeholder={t("Ваш username")}
+                    placeholder={t("Ваш имя пользователя")}
                     className={cls.input}
                     readonly={readonly}
                     onChange={onChangeUsername}

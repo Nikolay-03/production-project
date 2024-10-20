@@ -3,9 +3,11 @@
   padding: 20px;
   border: 2px solid var(--inverted-bg-color);
 }
+
 .input{
   margin-top: 10px;
 }
+
 .loading,
 .error {
   height: 300px;
@@ -13,6 +15,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .avatar{
   display: flex;
   width: 100%;
