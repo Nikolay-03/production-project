@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: ${{matrix.node}}
       - name: Cache deps
-      - uses: actions/cache@v3
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: node-modules-${{hashFiles('**/package-lock.json')}}
@@ -36,9 +36,9 @@ jobs:
     needs: [ node-npm ]
     steps:
       - name: Check out repository code
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
       - name: Cache deps
-      - uses: actions/cache@v3
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: node-modules-${{hashFiles('**/package-lock.json')}}
@@ -56,7 +56,7 @@ jobs:
     needs: [ node-npm ]
     steps:
       - name: Check out repository code
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
       - name: Cache deps
       - uses: actions/cache@v3
         with:
@@ -74,7 +74,7 @@ jobs:
     needs: [ node-npm ]
     steps:
       - name: Check out repository code
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
       - name: Cache deps
       - uses: actions/cache@v3
         with:
@@ -94,7 +94,7 @@ jobs:
       - name: Check out repository code
       - uses: actions/checkout@v4
       - name: Cache deps
-      - uses: actions/cache@v3
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: node-modules-${{hashFiles('**/package-lock.json')}}
@@ -110,7 +110,7 @@ jobs:
     needs: [ build-storybook ]
     steps:
       - name: Check out repository code
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
       - name: Cache deps
       - uses: actions/cache@v3
         with:
