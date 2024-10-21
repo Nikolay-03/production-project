@@ -30,7 +30,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-
       - name: install modules
-      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         run: npm install
   linting:
     runs-on: ubuntu-latest
