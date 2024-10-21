@@ -128,3 +128,9 @@ jobs:
         with:
           name: loki-difference
           path: .loki/difference
+      - name: Upload Loki ref
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: loki-reference
+          path: .loki/reference
