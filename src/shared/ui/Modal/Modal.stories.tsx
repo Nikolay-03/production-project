@@ -13,10 +13,7 @@ const meta = {
             'accusamus ad adipisci aliquid animi ' +
             'aspernatur aut cum delectus distinctio ' +
             'dolorem dolores esse eum eveniet id ' +
-            'inventore iste magnam maiores neque nihil ' +
-            'nostrum, odit pariatur perspiciatis ' +
-            'possimus quas qui quidem quisquam recusandae,' +
-            ' rem repudiandae, similique soluta tempore ut voluptates.',
+            'inventore iste magnam maiores neque nihil',
         isOpen:true
     },
 } satisfies Meta<typeof Modal>;
