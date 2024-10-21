@@ -123,6 +123,7 @@ jobs:
       - name: screenshot testing
         run: npm run test:ui:ci
       - name: Upload Loki diff
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: loki-difference
