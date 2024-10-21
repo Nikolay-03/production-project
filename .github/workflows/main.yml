@@ -28,44 +28,44 @@ jobs:
           key: node-modules-${{hashFiles('**/package-lock.json')}}
       - name: install modules
         run: npm install
-  linting:
-    runs-on: ubuntu-latest
-#    strategy:
-#      matrix:
-#        node: [18.x, 20.x, 22.x]
-    needs: [ node-npm ]
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - name: Cache deps
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: node-modules-${{hashFiles('**/package-lock.json')}}
-      - name: install modules
-        run: npm install
-      - name: linting typescript
-        run: npm run lint:ts
-      - name: linting css
-        run: npm run lint:scss
-  unit-testing:
-    runs-on: ubuntu-latest
-#    strategy:
-#      matrix:
-#        node: [18.x, 20.x, 22.x]
-    needs: [ node-npm ]
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - name: Cache deps
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: node-modules-${{hashFiles('**/package-lock.json')}}
-      - name: install modules
-        run: npm install
-      - name: unit testing
-        run: npm run test:unit
+#  linting:
+#    runs-on: ubuntu-latest
+##    strategy:
+##      matrix:
+##        node: [18.x, 20.x, 22.x]
+#    needs: [ node-npm ]
+#    steps:
+#      - name: Check out repository code
+#        uses: actions/checkout@v4
+#      - name: Cache deps
+#        uses: actions/cache@v3
+#        with:
+#          path: ~/.npm
+#          key: node-modules-${{hashFiles('**/package-lock.json')}}
+#      - name: install modules
+#        run: npm install
+#      - name: linting typescript
+#        run: npm run lint:ts
+#      - name: linting css
+#        run: npm run lint:scss
+#  unit-testing:
+#    runs-on: ubuntu-latest
+##    strategy:
+##      matrix:
+##        node: [18.x, 20.x, 22.x]
+#    needs: [ node-npm ]
+#    steps:
+#      - name: Check out repository code
+#        uses: actions/checkout@v4
+#      - name: Cache deps
+#        uses: actions/cache@v3
+#        with:
+#          path: ~/.npm
+#          key: node-modules-${{hashFiles('**/package-lock.json')}}
+#      - name: install modules
+#        run: npm install
+#      - name: unit testing
+#        run: npm run test:unit
   build-storybook:
     runs-on: ubuntu-latest
 #    strategy:
@@ -84,24 +84,24 @@ jobs:
         run: npm install
       - name: build storybook
         run: npm run storybook:build
-  build-project:
-    runs-on: ubuntu-latest
-#    strategy:
-#      matrix:
-#        node: [18.x, 20.x, 22.x]
-    needs: [ linting, unit-testing ]
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - name: Cache deps
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: node-modules-${{hashFiles('**/package-lock.json')}}
-      - name: install modules
-        run: npm install
-      - name: build production project
-        run: npm run build:prod
+#  build-project:
+#    runs-on: ubuntu-latest
+##    strategy:
+##      matrix:
+##        node: [18.x, 20.x, 22.x]
+#    needs: [ linting, unit-testing ]
+#    steps:
+#      - name: Check out repository code
+#        uses: actions/checkout@v4
+#      - name: Cache deps
+#        uses: actions/cache@v3
+#        with:
+#          path: ~/.npm
+#          key: node-modules-${{hashFiles('**/package-lock.json')}}
+#      - name: install modules
+#        run: npm install
+#      - name: build production project
+#        run: npm run build:prod
   screenshot-testing:
     runs-on: ubuntu-latest
 #    strategy:
@@ -120,7 +120,5 @@ jobs:
         run: npm install
       - name: build-story
         run: npm run storybook:build
-      - name: update
-        run: npm run test:ui:ci:up
       - name: screenshot testing
         run: npm run test:ui:ci

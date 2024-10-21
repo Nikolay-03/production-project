@@ -118,6 +118,10 @@
     "looks-same": {
       "ignoreCaret": true
     },
+    "config": {
+      "reactUri": "http://localhost:6006",
+      "chromeFlags": ["--headless", "--disable-gpu"]
+    },
     "configurations": {
       "chrome.laptop": {
         "target": "chrome.docker",
