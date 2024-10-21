@@ -11,7 +11,7 @@ describe('getProfileData', () => {
             lastname:'Surname',
             age:18,
             city:'LA',
-            country: Country.USA,
+            country: Country.RUSSIA,
             currency:Currency.USD,
         }
         const state: DeepPartial<StateSchema> = {
