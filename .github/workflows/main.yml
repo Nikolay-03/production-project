@@ -91,9 +91,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: storybook-static
-          key: ${{ runner.os }}-build-${{hashFiles('**/storybook-static')}}
+          key: storybook-build-${{hashFiles('**/storybook-static')}}
           restore-keys: |
-            ${{ runner.os }}-build-
+            storybook-build-
       - name: build storybook
         if: ${{ steps.cache-storybook-static.outputs.cache-hit != 'true' }}
         run: npm run storybook:build
@@ -135,9 +135,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: cache-storybook-static
-          key: ${{ runner.os }}-build-${{hashFiles('**/storybook-static')}}
+          key: storybook-build-${{hashFiles('**/storybook-static')}}
           restore-keys: |
-            ${{ runner.os }}-build-
+            storybook-build-
       - name: update-screenshots
         run: npm run test:ui:ci:up
       - name: screenshot testing
