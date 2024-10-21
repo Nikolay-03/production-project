@@ -32,6 +32,7 @@ jobs:
       - name: install modules
         if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         run: npm install
+
   linting:
     runs-on: ubuntu-latest
     strategy:
@@ -52,6 +53,7 @@ jobs:
         run: npm run lint:ts
       - name: linting css
         run: npm run lint:scss
+
   unit-testing:
     runs-on: ubuntu-latest
     strategy:
@@ -70,6 +72,7 @@ jobs:
             ${{ runner.os }}-build-
       - name: unit testing
         run: npm run test:unit
+
   build-storybook:
     runs-on: ubuntu-latest
     strategy:
@@ -86,17 +89,14 @@ jobs:
           key: ${{ runner.os }}-build-${{hashFiles('**/package-lock.json')}}
           restore-keys: |
             ${{ runner.os }}-build-
-      - name: upload storybook static build
-        id: cache-storybook-static
-        uses: actions/cache@v3
-        with:
-          path: storybook-static
-          key: storybook-build-${{hashFiles('**/storybook-static')}}
-          restore-keys: |
-            storybook-build-
       - name: build storybook
-        if: ${{ steps.cache-storybook-static.outputs.cache-hit != 'true' }}
         run: npm run storybook:build
+      - name: Upload Storybook as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: storybook-static
+          path: storybook-static
+
   build-project:
     runs-on: ubuntu-latest
     strategy:
@@ -115,6 +115,7 @@ jobs:
             ${{ runner.os }}-build-
       - name: build production project
         run: npm run build:prod
+
   screenshot-testing:
     runs-on: ubuntu-latest
     strategy:
@@ -131,13 +132,11 @@ jobs:
           key: ${{ runner.os }}-build-${{hashFiles('**/package-lock.json')}}
           restore-keys: |
             ${{ runner.os }}-build-
-      - name: restore storybook static build
-        uses: actions/cache@v3
+      - name: Download Storybook artifact
+        uses: actions/download-artifact@v3
         with:
-          path: cache-storybook-static
-          key: storybook-build-${{hashFiles('**/storybook-static')}}
-          restore-keys: |
-            storybook-build-
+          name: storybook-static
+          path: ./storybook-static
       - name: update-screenshots
         run: npm run test:ui:ci:up
       - name: screenshot testing
