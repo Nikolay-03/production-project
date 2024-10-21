@@ -120,7 +120,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [18.x]
+        node: [18.x, 20.x, 22.x]
     needs: [ build-storybook ]
     steps:
       - name: Check out repository code
