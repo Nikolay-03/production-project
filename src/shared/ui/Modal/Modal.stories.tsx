@@ -24,9 +24,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const ModalLight: Story = {
+export const Normal: Story = {
 };
-export const ModalDark: Story = {
+export const Dark: Story = {
 };
-ModalDark.decorators = []
+Dark.decorators = [ThemeDecorator(Theme.DARK)]
 
