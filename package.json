@@ -116,6 +116,7 @@
     ]
   },
   "loki": {
+    "chromeLoadTimeout": 5000,
     "looks-same": {
       "ignoreCaret": true
     },
