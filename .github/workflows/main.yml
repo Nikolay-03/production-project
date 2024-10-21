@@ -120,14 +120,5 @@ jobs:
         run: npm install
       - name: build storybook
         run: npm run storybook:build
-      - name: run storybook
-        run: npm run storybook
-        background: true
-      - name: run test ui
-        run: npm run test:ui
-      - name: ok
-        run: npm run test:ui:ok
-      - name: update
-        run: npm run test:ui:ci:up
       - name: screenshot testing
         run: npm run test:ui:ci

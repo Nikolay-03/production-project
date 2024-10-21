@@ -116,12 +116,7 @@
   },
   "loki": {
     "looks-same": {
-      "tolerance": 10,
       "ignoreCaret": true
-    },
-    "config": {
-      "reactUri": "http://localhost:6006",
-      "chromeFlags": ["--headless", "--disable-gpu"]
     },
     "configurations": {
       "chrome.laptop": {
