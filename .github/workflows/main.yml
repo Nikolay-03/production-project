@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [22.x]
+        node: [18.x, 20.x, 22.x]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -22,121 +22,118 @@ jobs:
         with:
           node-version: ${{matrix.node}}
       - name: Cache deps
+        id: cache-npm
         uses: actions/cache@v3
         with:
-          path: ~/.npm
-          key: node-modules-${{hashFiles('**/package-lock.json')}}
+          path: node_modules
+          key: ${{ runner.os }}-build-${{hashFiles('**/package-lock.json')}}
+          restore-keys: |
+            ${{ runner.os }}-build-
       - name: install modules
+      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         run: npm install
-#  linting:
-#    runs-on: ubuntu-latest
-#    strategy:
-#      matrix:
-#        node: [18.x, 20.x, 22.x]
-#    needs: [ node-npm ]
-#    steps:
-#      - name: Check out repository code
-#        uses: actions/checkout@v4
-#      - name: Cache deps
-#        uses: actions/cache@v3
-#        with:
-#          path: ~/.npm
-#          key: node-modules-${{hashFiles('**/package-lock.json')}}
-#      - name: install modules
-#        run: npm install
-#      - name: linting typescript
-#        run: npm run lint:ts
-#      - name: linting css
-#        run: npm run lint:scss
-#  unit-testing:
-#    runs-on: ubuntu-latest
-#    strategy:
-#      matrix:
-#        node: [18.x, 20.x, 22.x]
-#    needs: [ node-npm ]
-#    steps:
-#      - name: Check out repository code
-#        uses: actions/checkout@v4
-#      - name: Cache deps
-#        uses: actions/cache@v3
-#        with:
-#          path: ~/.npm
-#          key: node-modules-${{hashFiles('**/package-lock.json')}}
-#      - name: install modules
-#        run: npm install
-#      - name: unit testing
-#        run: npm run test:unit
-#  build-storybook:
-#    runs-on: ubuntu-latest
-#    strategy:
-#      matrix:
-#        node: [18.x, 20.x, 22.x]
-#    needs: [ node-npm ]
-#    steps:
-#      - name: Check out repository code
-#        uses: actions/checkout@v4
-#      - name: Cache deps
-#        uses: actions/cache@v3
-#        with:
-#          path: ~/.npm
-#          key: node-modules-${{hashFiles('**/package-lock.json')}}
-#      - name: install modules
-#        run: npm install
-#      - name: build storybook
-#        run: npm run storybook:build
-#  build-project:
-#    runs-on: ubuntu-latest
-#    strategy:
-#      matrix:
-#        node: [18.x, 20.x, 22.x]
-#    needs: [ linting, unit-testing ]
-#    steps:
-#      - name: Check out repository code
-#        uses: actions/checkout@v4
-#      - name: Cache deps
-#        uses: actions/cache@v3
-#        with:
-#          path: ~/.npm
-#          key: node-modules-${{hashFiles('**/package-lock.json')}}
-#      - name: install modules
-#        run: npm install
-#      - name: build production project
-#        run: npm run build:prod
+  linting:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18.x, 20.x, 22.x]
+    needs: [ node-npm ]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Restore deps
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{hashFiles('**/package-lock.json')}}
+          restore-keys: |
+            ${{ runner.os }}-build-
+      - name: linting typescript
+        run: npm run lint:ts
+      - name: linting css
+        run: npm run lint:scss
+  unit-testing:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18.x, 20.x, 22.x]
+    needs: [ node-npm ]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Restore deps
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{hashFiles('**/package-lock.json')}}
+          restore-keys: |
+            ${{ runner.os }}-build-
+      - name: unit testing
+        run: npm run test:unit
+  build-storybook:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18.x, 20.x, 22.x]
+    needs: [ node-npm ]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Restore deps
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{hashFiles('**/package-lock.json')}}
+          restore-keys: |
+            ${{ runner.os }}-build-
+      - name: build storybook
+        run: npm run storybook:build
+      - name: upload storybook static build
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-static
+          path: ./storybook-static
+          retention-days: 1
+  build-project:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18.x, 20.x, 22.x]
+    needs: [ linting, unit-testing ]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Restore deps
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{hashFiles('**/package-lock.json')}}
+          restore-keys: |
+            ${{ runner.os }}-build-
+      - name: build production project
+        run: npm run build:prod
   screenshot-testing:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [18.x]
-#    needs: [ build-storybook ]
+    needs: [ build-storybook ]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: Cache deps
+      - name: Restore deps
         uses: actions/cache@v3
         with:
-          path: ~/.npm
-          key: node-modules-${{hashFiles('**/package-lock.json')}}
-      - name: install modules
-        run: npm install
-      - name: build storybook
-        run: npm run storybook:build
+          path: node_modules
+          key: ${{ runner.os }}-build-${{hashFiles('**/package-lock.json')}}
+          restore-keys: |
+            ${{ runner.os }}-build-
+      - name: download storybook static build
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-static
+          path: ./storybook-static
+      - name: update-screenshots
+        run: npm run test:ui:ci:up
       - name: screenshot testing
         run: npm run test:ui:ci
-      - name: Upload Loki diff
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: loki-difference
-          path: .loki/difference
-      - name: Upload Loki ref
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: loki-reference
-          path: .loki/reference
-      - name: Upload Loki cur
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: loki-current
-          path: .loki/current
