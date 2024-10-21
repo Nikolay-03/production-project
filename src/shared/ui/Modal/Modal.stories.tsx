@@ -28,5 +28,5 @@ export const ModalLight: Story = {
 };
 export const ModalDark: Story = {
 };
-ModalDark.decorators = [ThemeDecorator(Theme.DARK)]
+ModalDark.decorators = []
 
