@@ -65,7 +65,6 @@ export const Modal: FC<ModalProps> = (props) => {
         return null
     }
     return (
-        <Portal>
             <div className={classNames(cls.Modal, mods, [className])}>
                 <div className={cls.overlay} onClick={closeHandler}>
                     <div className={cls.content} onClick={onContentClick}>
@@ -73,7 +72,6 @@ export const Modal: FC<ModalProps> = (props) => {
                     </div>
                 </div>
             </div>
-        </Portal>
     );
 };
 
