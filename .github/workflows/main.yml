@@ -86,8 +86,6 @@ jobs:
           key: ${{ runner.os }}-build-${{hashFiles('**/package-lock.json')}}
           restore-keys: |
             ${{ runner.os }}-build-
-      - name: build storybook
-        run: npm run storybook:build
       - name: upload storybook static build
         id: cache-storybook-static
         uses: actions/cache@v3
