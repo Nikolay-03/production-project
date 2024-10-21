@@ -89,11 +89,16 @@ jobs:
       - name: build storybook
         run: npm run storybook:build
       - name: upload storybook static build
-        uses: actions/upload-artifact@v4
+        id: cache-storybook-static
+        uses: actions/cache@v3
         with:
-          name: storybook-static
-          path: ./storybook-static
-          retention-days: 1
+          path: storybook-static
+          key: ${{ runner.os }}-build-${{hashFiles('**/storybook-static')}}
+          restore-keys: |
+            ${{ runner.os }}-build-
+      - name: build storybook
+        if: ${{ steps.cache-storybook-static.outputs.cache-hit != 'true' }}
+        run: npm run storybook:build
   build-project:
     runs-on: ubuntu-latest
     strategy:
@@ -128,11 +133,13 @@ jobs:
           key: ${{ runner.os }}-build-${{hashFiles('**/package-lock.json')}}
           restore-keys: |
             ${{ runner.os }}-build-
-      - name: download storybook static build
-        uses: actions/upload-artifact@v4
+      - name: restore storybook static build
+        uses: actions/cache@v3
         with:
-          name: storybook-static
-          path: ./storybook-static
+          path: cache-storybook-static
+          key: ${{ runner.os }}-build-${{hashFiles('**/storybook-static')}}
+          restore-keys: |
+            ${{ runner.os }}-build-
       - name: update-screenshots
         run: npm run test:ui:ci:up
       - name: screenshot testing
