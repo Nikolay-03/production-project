@@ -134,3 +134,9 @@ jobs:
         with:
           name: loki-reference
           path: .loki/reference
+      - name: Upload Loki cur
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: loki-current
+          path: .loki/current
