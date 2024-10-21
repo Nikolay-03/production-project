@@ -24,9 +24,6 @@ type Story = StoryObj<typeof meta>;
 export const Normal: Story = {
 };
 export const Dark: Story = {
-    parameters: {
-        chromatic: { disableSnapshot: false },
-    },
 };
 Dark.decorators = [ThemeDecorator(Theme.DARK)]
 
